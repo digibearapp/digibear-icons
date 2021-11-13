@@ -54,7 +54,9 @@ function cleanUpSVGs(folders) {
     console.log(`Cleaning up SVG icons files`);
     const versionReleasePath = path.join(paths.RELEASE_PATH, version);
     fs.mkdirSync(versionReleasePath);
-    const versionReleaseSVGPath = path.join(versionReleasePath, "svg");
+    const versionReleaseDirPath = path.join(versionReleasePath, "digibear-icons");
+    fs.mkdirSync(versionReleaseDirPath);
+    const versionReleaseSVGPath = path.join(versionReleaseDirPath, "svg");
     fs.mkdirSync(versionReleaseSVGPath);
     folders.forEach((styleFolder) => {
         cleanUpSVGsForStyle(styleFolder, versionReleaseSVGPath);
@@ -65,7 +67,6 @@ function cleanUpSVGsForStyle(style, versionReleaseSVGPath) {
     const svgFiles = fs.readdirSync(path.join(paths.ICONS_PATH, style), { withFileTypes: true })
         .filter(dirent => !dirent.isDirectory() && path.extname(dirent.name).toLowerCase() === constants.EXTENSION)
         .map(dirent => dirent.name);
-
     const cleanedSvgDirPath = path.join(paths.ICONS_PATH, style, style);
     fs.mkdirSync(cleanedSvgDirPath);
     svgFiles.forEach((svgFileName) => {
