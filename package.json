@@ -1,0 +1,17 @@
+{
+  "name": "icons",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "clean-up": "node ./bin/clean-up.js",
+    "create-release": "cd release/$npm_package_version && zip digibear-icons.zip -r ./ && gh release create v$npm_package_version ./digibear-icons.zip && cd ../..",
+    "update-git": "git add . && git commit -m $npm_package_version && git push"
+  },
+  "devDependencies": {
+    "chalk": "^4.1.2",
+    "lodash": "^4.17.21",
+    "rimraf": "^3.0.2",
+    "svgo": "^2.8.0"
+  }
+}
