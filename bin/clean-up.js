@@ -54,11 +54,13 @@ function cleanUpSVGs(folders) {
     console.log(`Cleaning up SVG icons files`);
     const versionReleasePath = path.join(paths.RELEASE_PATH, version);
     fs.mkdirSync(versionReleasePath);
+    const versionReleaseSVGPath = path.join(versionReleasePath, "svg");
+    fs.mkdirSync(versionReleaseSVGPath);
     folders.forEach((styleFolder) => {
-        cleanUpSVGsForStyle(styleFolder, versionReleasePath);
+        cleanUpSVGsForStyle(styleFolder, versionReleaseSVGPath);
     });
 }
-function cleanUpSVGsForStyle(style, versionReleasePath) {
+function cleanUpSVGsForStyle(style, versionReleaseSVGPath) {
     console.log(`Cleaning up SVG icons files for style : ${style}`);
     const svgFiles = fs.readdirSync(path.join(paths.ICONS_PATH, style), { withFileTypes: true })
         .filter(dirent => !dirent.isDirectory() && path.extname(dirent.name).toLowerCase() === constants.EXTENSION)
@@ -77,7 +79,7 @@ function cleanUpSVGsForStyle(style, versionReleasePath) {
         cleanUpSVG(cleanedSvgFilePath, cleanedSvgFilePath);
         console.log(`${chalk.inverse.green(" DONE ")} ${svgFileName} created.`);
     });
-    const newPath = path.join(versionReleasePath, style);
+    const newPath = path.join(versionReleaseSVGPath, style);
     fs.renameSync(cleanedSvgDirPath, newPath);
 }
 
